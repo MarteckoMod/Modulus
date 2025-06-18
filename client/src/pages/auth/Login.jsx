@@ -7,7 +7,7 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: 'admin@martecko.com',
-    password: 'demopassword'
+    password: '12345'
   });
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);

@@ -5,7 +5,12 @@ module.exports = {
     "./public/index.html",        // optional, if you use plain HTML in public folder
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        exo: ['"Exo 2"', 'sans-serif'],
+      },
+    
+    },
   },
   plugins: [],
 }

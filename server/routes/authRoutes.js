@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const authMiddleware = require('../utils/authMiddleware');
 
 // @route   POST /api/auth/register
 // @desc    Register a new user
@@ -52,39 +53,41 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
-
-    // Check if user exists
     const user = await User.findOne({ email });
-    if (!user) {
+    if (!user || !(await user.comparePassword(password))) {
       return res.status(400).json({ msg: 'Invalid credentials' });
     }
 
-    // Check password
-    const isMatch = await user.comparePassword(password);
-    if (!isMatch) {
-      return res.status(400).json({ msg: 'Invalid credentials' });
-    }
-
-    // Create JWT token
-    const payload = {
-      user: {
-        id: user.id
-      }
-    };
-
-    jwt.sign(
-      payload,
-      process.env.JWT_SECRET,
-      { expiresIn: '24h' },
-      (err, token) => {
-        if (err) throw err;
-        res.json({ token });
-      }
-    );
+    const payload = { user: { id: user.id } };
+    jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '24h' }, (err, token) => {
+      if (err) throw err;
+      res.json({
+        token,
+        connectedChannels: user.connectedChannels
+      });
+    });
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error');
   }
 });
+
+router.get('/userDetails',authMiddleware, async (req, res) => {
+  try {
+    const  user = req.user;
+    if (!user) {
+      return res.status(404).json({ msg: 'User not found' });
+    }
+    res.json({
+      user: {
+        id: user.id,
+        email: user.email,
+        connectedChannels: user.connectedChannels
+      }
+    })
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }})
 
 module.exports = router; 

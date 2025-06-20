@@ -2,8 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const channelRoutes = require('./routes/channelRoutes');
 const authRoutes = require('./routes/authRoutes');
+const googleAdsRoutes = require('./routes/googleAds'); // Assuming you have this route set up
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -17,9 +17,9 @@ mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('MongoDB Connected...'))
   .catch(err => console.error(err));
 
-// API Routes
-app.use('/api/channels', channelRoutes);
+
 app.use('/api/auth', authRoutes);
+app.use('/api/google',googleAdsRoutes); // Google Ads routes);
 
 // Basic Route
 app.get('/', (req, res) => {

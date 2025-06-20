@@ -6,8 +6,7 @@ import { GoGraph } from "react-icons/go";
 import { MdOutlineSettings } from "react-icons/md";
 import { MdOutlineSupport } from "react-icons/md";
 import { MdOutlineHelp } from "react-icons/md";
-
-
+import { Link } from 'react-router-dom';
 
 const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -19,54 +18,47 @@ const Sidebar = () => {
 
   const menuItems = [
     {
-      icon: (
-      <LuLayoutDashboard/>
-      ),
+      icon: (<LuLayoutDashboard/>),
       label: 'My Dashboard',
-      hasNew: false
+      hasNew: false,
+      to: '/dashboard',
     },
     {
-      icon: (
-       <MdWorkspacePremium/>
-      ),
+      icon: (<MdWorkspacePremium/>),
       label: 'My Workspaces',
-      hasNew: true
+      hasNew: true,
+      to: '/workspace-connect',
     },
     {
-      icon: (
-      <MdOutlineRocketLaunch/>
-      ),
+      icon: (<MdOutlineRocketLaunch/>),
       label: 'Boost',
-      hasNew: false
+      hasNew: false,
+      to: '#',
     },
     {
-      icon: (
-       <GoGraph/>
-      ),
+      icon: (<GoGraph/>),
       label: 'P&L Tracker',
-      hasNew: false
+      hasNew: false,
+      to: '#',
     },
     {
-      icon: (
-       <MdOutlineSettings/>
-      ),
+      icon: (<MdOutlineSettings/>),
       label: 'Control Panel',
-      hasNew: false
+      hasNew: false,
+      to: '#',
     }
   ];
 
   const bottomMenuItems = [
     {
-      icon: (
-       <MdOutlineSupport/>
-      ),
-      label: 'Support'
+      icon: (<MdOutlineSupport/>),
+      label: 'Support',
+      to: '#',
     },
     {
-      icon: (
-       <MdOutlineHelp/>
-      ),
-      label: 'Help'
+      icon: (<MdOutlineHelp/>),
+      label: 'Help',
+      to: '#',
     }
   ];
 
@@ -100,7 +92,7 @@ const Sidebar = () => {
 
         <nav className="flex-1 p-4 space-y-4">
           {menuItems.map((item, index) => (
-            <a key={index} href="#" className="flex items-center p-3  text-gray-700 hover:bg-gray-200 rounded-md transition duration-200">
+            <Link key={index} to={item.to} className="flex items-center p-3  text-gray-700 hover:bg-gray-200 rounded-md transition duration-200">
               {item.icon}
               <span className={`ml-3 ${isCollapsed ? 'hidden' : 'block'}`}>
                 {item.label}
@@ -108,19 +100,21 @@ const Sidebar = () => {
                   <span className="ml-2 px-2 py-0.5 bg-red-500 text-white text-xs rounded-full">NEW</span>
                 )}
               </span>
-            </a>
+            </Link>
           ))}
           <div className={`mt-auto pt-4 ${isCollapsed ? 'hidden' : 'block'}`}>
-            <button className="w-full py-2 bg-black text-white rounded-md hover:bg-indigo-800 transition duration-300">Connect</button>
+            <Link to="/workspace-connect">
+              <button className="w-full py-2 bg-black text-white rounded-md hover:bg-indigo-800 transition duration-300">Connect</button>
+            </Link>
           </div>
         </nav>
 
         <div className={`p-4 border-t flex flex-col space-y-2 ${isCollapsed ? 'hidden' : 'block'}`}>
           {bottomMenuItems.map((item, index) => (
-            <a key={index} href="#" className="flex items-center p-2 text-gray-700 hover:bg-gray-200 rounded-md transition duration-200">
+            <Link key={index} to={item.to} className="flex items-center p-2 text-gray-700 hover:bg-gray-200 rounded-md transition duration-200">
               {item.icon}
               <span className={`ml-3 ${isCollapsed ? 'hidden' : 'block'}`}>{item.label}</span>
-            </a>
+            </Link>
           ))}
         </div>
       </aside>
@@ -158,7 +152,7 @@ const Sidebar = () => {
 
             <nav className="p-4 space-y-2">
               {menuItems.map((item, index) => (
-                <a key={index} href="#" className="flex items-center p-2 text-gray-700 hover:bg-gray-200 rounded-md transition duration-200">
+                <Link key={index} to={item.to} className="flex items-center p-2 text-gray-700 hover:bg-gray-200 rounded-md transition duration-200">
                   {item.icon}
                   <span className="ml-3">
                     {item.label}
@@ -166,19 +160,21 @@ const Sidebar = () => {
                       <span className="ml-2 px-2 py-0.5 bg-red-500 text-white text-xs rounded-full">NEW</span>
                     )}
                   </span>
-                </a>
+                </Link>
               ))}
               <div className="mt-4">
-                <button className="w-full py-2 bg-black text-white rounded-md hover:bg-indigo-800 transition duration-300">Connect</button>
+                <Link to="/workspace-connect">
+                  <button className="w-full py-2 bg-black text-white rounded-md hover:bg-indigo-800 transition duration-300">Connect</button>
+                </Link>
               </div>
             </nav>
 
             <div className="p-4 border-t space-y-2">
               {bottomMenuItems.map((item, index) => (
-                <a key={index} href="#" className="flex items-center p-2 text-gray-700 hover:bg-gray-200 rounded-md transition duration-200">
+                <Link key={index} to={item.to} className="flex items-center p-2 text-gray-700 hover:bg-gray-200 rounded-md transition duration-200">
                   {item.icon}
                   <span className="ml-3">{item.label}</span>
-                </a>
+                </Link>
               ))}
             </div>
           </div>

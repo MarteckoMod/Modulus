@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { mainContext } from '../../context/AuthContext';
 
 const Login = () => {
+  const { token, setToken, user, setUser } = useContext(mainContext);
   const navigate = useNavigate();
   const [isVisible, setIsVisible] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
-    email: 'admin@martecko.com',
+    email: 'test@gmail.com',
     password: '12345'
   });
   const [error, setError] = useState('');
@@ -42,8 +45,7 @@ const Login = () => {
       if (!response.ok) {
         throw new Error(data.msg || 'Login failed');
       }
-
-      // Store the token in localStorage
+      setToken(data.token);
       localStorage.setItem('token', data.token);
       
       // Redirect to dashboard or home page

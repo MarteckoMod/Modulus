@@ -13,6 +13,18 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+   connectedChannels: {
+    googleAds: {
+      accessToken: String,
+      refreshToken: String,
+      connected: { type: Boolean, default: false },
+    },
+    metaAds: {
+      accessToken: String,
+      refreshToken: String,
+      connected: { type: Boolean, default: false },
+    },
+  },
   createdAt: {
     type: Date,
     default: Date.now

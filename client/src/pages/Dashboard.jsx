@@ -13,6 +13,9 @@ const Dashboard = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
 
+
+  
+
   useEffect(() => {
     // Simulate API call
     setTimeout(() => {
@@ -74,18 +77,19 @@ const Dashboard = () => {
   </div>
 </div>
 
-              <Link to="/workspace-connect" className="block mb-4">
+           
               <p className="text-gray-500 font-exo font-semibold text-base mb-8">
                 Connect your accounts to get started
               </p>
-              </Link>
-              
+             
+                 <Link to="/workspace-connect" className="block mb-4">
               <button 
                 onClick={handleConnectAccounts}
                 className="bg-gray-900 text-white px-8 py-4 font-sans rounded-lg font-medium hover:bg-gray-800 transition-colors text-lg"
               >
                 Connect Accounts
               </button>
+               </Link>
             </div>
           </div>
 

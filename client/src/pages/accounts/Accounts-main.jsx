@@ -88,7 +88,7 @@ const ConnectAccount = () => {
           break;
 
         case 'meta':
-          endpoint = "http://localhost:5000/api/meta/connect";
+          endpoint = "http://localhost:5000/api/facebook/connect";
           config = {
             headers: { Authorization: `Bearer ${token}` },
             data: { platform: 'facebook' }

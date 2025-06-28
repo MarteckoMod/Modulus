@@ -24,6 +24,11 @@ const UserSchema = new mongoose.Schema({
       refreshToken: String,
       connected: { type: Boolean, default: false },
     },
+      facebookAds: {
+    accessToken: String,
+     connected: { type: Boolean, default: false },
+    connectedAt: Date
+      }
   },
   createdAt: {
     type: Date,
